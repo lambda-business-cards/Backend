@@ -1,0 +1,27 @@
+{
+  "name": "Backend",
+  "version": "1.0.0",
+  "description": "All the tasty backend magic that powers our epic business card app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lambda-business-cards/Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lambda-business-cards/Backend/issues"
+  },
+  "homepage": "https://github.com/lambda-business-cards/Backend#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
