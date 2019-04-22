@@ -53,9 +53,15 @@ server.post('/', authenticate, async (req, res) => {
 
     await db.insert({ business_name, contact_name, email, phone, img_url, address, fax, web_url, user_id }).into('business_cards');
 
-    const id = await db.select('id').from('business_cards').where({ email, business_name, contact_name, user_id }).first();
+    let id = await db.select('id').from('business_cards').where({ email, business_name, contact_name, user_id }).first();
 
-    const img = await QRCode.toDataURL(`${id.id}`);
+    id = id.id;
+
+    const img = await QRCode.toDataURL(`${id}`);
+
+    const qr_url = await uploadImage(img);
+
+    await db('business_cards').update({ qr_url }).where({ id });
 
     res.status(200).json({message: 'Success!'});
 

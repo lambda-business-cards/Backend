@@ -23,9 +23,10 @@ module.exports = {
         }
 
         else {
-          await db.insert({ img_url: result.url }).into('images');
-          const image = await db.select().from('images').where('img_url', result.url).first();
-          resolve(image.id);
+          // await db.insert({ img_url: result.url }).into('images');
+          // const image = await db.select().from('images').where('img_url', result.url).first();
+          // console.log('success');
+          resolve(result.url);
 
         }
 
