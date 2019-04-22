@@ -57,3 +57,66 @@ To login, make a `POST` request to `/api/users/login`
 }
 
 ```
+
+# Business Cards
+
+## Create business card
+
+To create a business card, make a `POST` request to `/api/cards`
+
+### Req Body
+
+Note that the only required fields are `business_name`, `contact_name`, and `email`.
+
+```
+
+{
+	"business_name": "Sesame Street Inc",
+	"contact_name": "Big Bird",
+	"email": "bigbird@whitehouse.gov",
+	"phone": "14084206969",
+	"address": "123 sesame street",
+	"fax": "1234124123",
+	"web_url": "lambdaschool.com"
+}
+
+```
+
+### Response
+
+```
+
+{
+  "message": "Success!"
+}
+
+```
+
+## Fetch Business Cards
+
+To get a list of business cards, make a `GET` request to `/api/cards`.
+
+Note that at this time, the API only returns the cards for the current logged in user. Eventually I will send back an object containing the user's created cards and the user's saved cards.
+
+### Response
+
+The server will respond with an array of card objects, which will look like this:
+
+```
+
+[
+    {
+        "id": 1,
+        "business_name": "Sesame Street Inc",
+        "contact_name": "Big Bird",
+        "email": "bigbird@whitehouse.gov",
+        "phone": "14084206969",
+        "img_url": null,
+        "address": "123 sesame street",
+        "fax": "1234124123",
+        "web_url": "lambdaschool.com",
+        "user_id": 3
+    }
+]
+
+```
