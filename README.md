@@ -1,5 +1,5 @@
 # Backend
-All the tasty backend magic that powers our epic business card app
+All the tasty backend magic that powers our epic business card app.
 Deployed at https://business-card-backend.herokuapp.com/
 
 ## Register
@@ -14,7 +14,7 @@ To register a user, make a `POST` request to `/api/users/register`.
 	"username": "test1",
 	"email": "test1@test.test",
 	"password": "test",
-	"phone": "140842069692"
+	"phone": "14084206969"
 }
 
 ```

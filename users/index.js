@@ -39,6 +39,15 @@ server.post('/register', multipart, async (req, res) => {
 
   }
 
+  if (phone.length !== 11) {
+
+    res.status(400).json({message: 'invalid phone number format!'});
+    return;
+
+  }
+
+  phone = `${phone[0]} (${phone.substring(1, 4)}) ${phone.substring(4, 7)}-${phone.substring(7)}`;
+
   try {
 
     password = await bcrypt.hash(password, 1);
