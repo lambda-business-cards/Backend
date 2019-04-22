@@ -7,6 +7,7 @@ const users = require('./users');
 const cards = require('./cards');
 
 server.use(express.json());
+server.use(cors());
 server.use('/api/users', users);
 server.use('/api/cards', cards);
 

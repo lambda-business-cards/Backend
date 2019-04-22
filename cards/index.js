@@ -1,6 +1,9 @@
 const express = require('express');
+const QRCode = require('qrcode');
 
 const { authenticate } = require('../common/authentication');
+const { uploadImage } = require('../common/cloudinary');
+
 const db = require('../data/db');
 
 const server = express.Router();
@@ -51,6 +54,8 @@ server.post('/', authenticate, async (req, res) => {
     await db.insert({ business_name, contact_name, email, phone, img_url, address, fax, web_url, user_id }).into('business_cards');
 
     const id = await db.select('id').from('business_cards').where({ email, business_name, contact_name, user_id }).first();
+
+    const img = await QRCode.toDataURL(`${id.id}`);
 
     res.status(200).json({message: 'Success!'});
 

@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
     tbl.string('address');
     tbl.string('fax');
     tbl.string('web_url');
+    tbl.string('qr_url');
     tbl.integer('user_id').notNullable();
 
   })

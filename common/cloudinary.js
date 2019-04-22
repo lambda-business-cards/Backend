@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary');
 
-const { db } = require('../data/db');
+const db = require('../data/db');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
