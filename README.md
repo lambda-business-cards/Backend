@@ -105,18 +105,19 @@ The server will respond with an array of card objects, which will look like this
 ```
 
 [
-    {
-        "id": 1,
-        "business_name": "Sesame Street Inc",
-        "contact_name": "Big Bird",
-        "email": "bigbird@whitehouse.gov",
-        "phone": "14084206969",
-        "img_url": null,
-        "address": "123 sesame street",
-        "fax": "1234124123",
-        "web_url": "lambdaschool.com",
-        "user_id": 3
-    }
+		{
+				"id": 2,
+				"business_name": "Sesame Street Inc",
+				"contact_name": "Big Bird",
+				"email": "bigbird123@whitehouse.gov",
+				"phone": "14141414742",
+				"img_url": null,
+				"address": "123 sesame street",
+				"fax": "1234124123",
+				"web_url": "lambdaschool.com",
+				"qr_url": "http://res.cloudinary.com/dhupmye0m/image/upload/v1555971794/yxg34f7xeijwqgzkdl5z.png",
+				"user_id": 3
+		}
 ]
 
 ```
