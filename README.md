@@ -96,28 +96,71 @@ Note that the only required fields are `business_name`, `contact_name`, and `ema
 
 To get a list of business cards, make a `GET` request to `/api/cards`.
 
-Note that at this time, the API only returns the cards for the current logged in user. Eventually I will send back an object containing the user's created cards and the user's saved cards.
-
 ### Response
 
-The server will respond with an array of card objects, which will look like this:
+The server will respond with an object containing two arrays - one will contain the cards created by the user, the other will contain cards that the user has saved. Response will look something like this:
 
 ```
 
-[
-		{
-				"id": 2,
-				"business_name": "Sesame Street Inc",
-				"contact_name": "Big Bird",
-				"email": "bigbird123@whitehouse.gov",
-				"phone": "14141414742",
-				"img_url": null,
-				"address": "123 sesame street",
-				"fax": "1234124123",
-				"web_url": "lambdaschool.com",
-				"qr_url": "http://res.cloudinary.com/dhupmye0m/image/upload/v1555971794/yxg34f7xeijwqgzkdl5z.png",
-				"user_id": 3
-		}
-]
+{
+    "created": [
+        {
+            "id": 1,
+            "business_name": "test",
+            "contact_name": "fred",
+            "email": "123@",
+            "phone": null,
+            "img_url": null,
+            "address": null,
+            "fax": null,
+            "web_url": null,
+            "qr_url": "http://res.cloudinary.com/dhupmye0m/image/upload/v1556042200/siem75ia7amwfg9dlqjg.png",
+            "user_id": 1
+        }
+    ],
+    "saved": [
+				{
+						"id": 2,
+						"business_name": "Sesame Street Inc",
+						"contact_name": "Big Bird",
+						"email": "bigbird123@whitehouse.gov",
+						"phone": "14141414742",
+						"img_url": null,
+						"address": "123 sesame street",
+						"fax": "1234124123",
+						"web_url": "lambdaschool.com",
+						"qr_url": "http://res.cloudinary.com/dhupmye0m/image/upload/v1555971794/yxg34f7xeijwqgzkdl5z.png",
+						"user_id": 3,
+						"comment": null
+				}
+    ]
+}
+
+```
+
+## Save a business card to your collection
+
+To save a business card, make a `POST` request to `/api/cards/save`.
+
+### Req Body
+
+Note that `card_id` is the only required field, `comment` is optional.
+
+```
+
+{
+	"card_id": 1,
+	"comment": "this guy was pretty cool"
+}
+
+```
+
+### Response
+
+```
+
+{
+    "message": "success!"
+}
 
 ```

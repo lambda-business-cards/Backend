@@ -15,7 +15,7 @@ server.get('/', authenticate, async (req, res) => {
   try {
 
     const created = await db.select().from('business_cards').where({ user_id });
-    const saved = await db.select('c.*').from('business_cards as c').join('user_cards as uc', 'uc.card_id', 'c.id').where('c.user_id', user_id);
+    const saved = await db.select('c.*', 'uc.comment').from('business_cards as c').join('user_cards as uc', 'uc.card_id', 'c.id').where('c.user_id', user_id);
 
     res.status(200).json({
       created, saved
