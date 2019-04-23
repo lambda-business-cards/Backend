@@ -14,7 +14,7 @@ To register a user, make a `POST` request to `/api/users/register`.
 	"username": "test1",
 	"email": "test1@test.test",
 	"password": "test",
-	"phone": "14084206969"
+	"phone": "14384230192"
 }
 
 ```
