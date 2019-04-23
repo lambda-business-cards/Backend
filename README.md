@@ -138,6 +138,38 @@ The server will respond with an object containing two arrays - one will contain 
 
 ```
 
+## Update Business Card
+
+To update, make a `PUT` request to `/api/cards/:id`. Remember that id can be any number, it will be the ID of the business card.
+
+### Req Body
+
+The body will be the same as that of the `POST` request. The only required fields are `business_name`, `contact_name`, and `email`.
+
+```
+
+{
+	"business_name": "Sesame Street Inc",
+	"contact_name": "Big Bird",
+	"email": "bigbird@whitehouse.gov",
+	"phone": "14084206969",
+	"address": "123 sesame street",
+	"fax": "1234124123",
+	"web_url": "lambdaschool.com"
+}
+
+```
+
+### Response
+
+```
+
+{
+    "message": "Success!"
+}
+
+```
+
 ## Save a business card to your collection
 
 To save a business card, make a `POST` request to `/api/cards/save`.

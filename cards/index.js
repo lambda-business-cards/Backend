@@ -26,7 +26,7 @@ server.get('/', authenticate, async (req, res) => {
   catch (err) {
 
     console.log(err);
-    res.status(500).json({message: 'internal server error'});
+    res.status(500).json({message: 'this server be trippin'});
 
   }
 
@@ -73,7 +73,7 @@ server.post('/', authenticate, async (req, res) => {
   catch (err) {
 
     console.log(err);
-    res.status(500).json({message: 'internal server error'});
+    res.status(500).json({message: 'dis server be trippin'});
 
   }
 
@@ -103,6 +103,71 @@ server.post('/save', authenticate, async (req, res) => {
   await db.insert({ user_id, card_id, comment }).into('user_cards');
 
   res.status(200).json({message: 'success!'});
+
+});
+
+server.put('/:id', authenticate, async (req, res) => {
+
+  const { business_name, contact_name, email, phone, img_url, address, fax, web_url } = req.body;
+
+  if (!(business_name || contact_name || email || phone || img_url || address || fax || web_url)) {
+
+    res.status(400).json({ message: 'Send me some actual data homie' });
+    return;
+
+  }
+
+  if (!(business_name || contact_name || email)) {
+
+    res.status(400).json({ message: 'I needs myself some names and emails, yo'});
+    return;
+
+  }
+
+  let card;
+
+  try {
+
+    card = await db.select().from('business_cards').where('id', req.params.id).first();
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+    res.status(500).json({ message: 'dis server be trippin yo'});
+    return;
+
+  }
+
+  if (!card) {
+
+    res.status(404).json({ message: 'dis card dont exist yet brotha' });
+    return;
+
+  }
+
+  if (card.user_id !== req.decoded.subject) {
+
+    res.status(403).json({ message: 'You dont own this card my dude' });
+    return;
+
+  }
+
+  try {
+
+    await db('business_cards').update({ business_name, contact_name, email, phone, img_url, address, fax, web_url }).where('id', req.params.id);
+
+  }
+
+  catch (err) {
+
+    res.status(500).json({ message: 'something funnys going on over here'});
+    return;
+
+  }
+
+  res.status(200).json({ message: 'Success!' });
 
 });
 
