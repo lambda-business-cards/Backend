@@ -138,6 +138,33 @@ The server will respond with an object containing two arrays - one will contain 
 
 ```
 
+## Fetch Single Card
+
+To get a single business card, make a `GET` request to `/api/cards/:id`.
+
+### Response
+
+The server will respond with the single business card object.
+
+```
+
+{
+		"id": 2,
+		"business_name": "Sesame Street Inc",
+		"contact_name": "Big Bird",
+		"email": "bigbird123@whitehouse.gov",
+		"phone": "14141414742",
+		"img_url": null,
+		"address": "123 sesame street",
+		"fax": "1234124123",
+		"web_url": "lambdaschool.com",
+		"qr_url": "http://res.cloudinary.com/dhupmye0m/image/upload/v1555971794/yxg34f7xeijwqgzkdl5z.png",
+		"user_id": 3,
+		"comment": null
+}
+
+```
+
 ## Update Business Card
 
 To update, make a `PUT` request to `/api/cards/:id`. Remember that id can be any number, it will be the ID of the business card.
@@ -193,6 +220,20 @@ Note that `card_id` is the only required field, `comment` is optional.
 
 {
     "message": "success!"
+}
+
+```
+
+## Delete Business Card
+
+To delete a card, make a `DELETE` request to `/api/cards/:id`. Note that a user can only delete cards that they have created, and that by deleting your card, you also delete it off of everyone else's saved list.
+
+### Response
+
+```
+
+{
+    "message": "we good yo"
 }
 
 ```
