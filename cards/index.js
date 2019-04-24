@@ -94,7 +94,7 @@ server.post('/', authenticate, async (req, res) => {
   catch (err) {
 
     console.log(err);
-    res.status(500).json({message: 'dis server be trippin'});
+    res.status(500).json({message: 'server error', err});
 
   }
 
