@@ -15,7 +15,7 @@ server.get('/', authenticate, async (req, res) => {
   try {
 
     const created = await db.select().from('business_cards').where({ user_id });
-    const saved = await db.select('c.*', 'uc.comment').from('business_cards as c').join('user_cards as uc', 'uc.card_id', 'c.id').where('c.user_id', user_id);
+    const saved = await db.select('c.*', 'uc.comment').from('business_cards as c').join('user_cards as uc', 'uc.card_id', 'c.id').where('uc.user_id', user_id);
 
     res.status(200).json({
       created, saved
@@ -66,7 +66,7 @@ server.post('/', authenticate, async (req, res) => {
 
     await db('business_cards').update({ qr_url }).where({ id });
 
-    res.status(200).json({message: 'Success!'});
+    res.status(201).json({message: 'Success!'});
 
   }
 
@@ -102,7 +102,7 @@ server.post('/save', authenticate, async (req, res) => {
 
   await db.insert({ user_id, card_id, comment }).into('user_cards');
 
-  res.status(200).json({message: 'success!'});
+  res.status(201).json({message: 'success!'});
 
 });
 
@@ -168,6 +168,58 @@ server.put('/:id', authenticate, async (req, res) => {
   }
 
   res.status(200).json({ message: 'Success!' });
+
+});
+
+server.delete('/:id', authenticate, async (req, res) => {
+
+  const id = req.params.id;
+
+  let card;
+
+  try {
+
+    card = await db.select().from('business_cards').where({ id }).first();
+
+  }
+
+  catch (err) {
+
+    res.status(500).json({message: 'somethings going wrong son'});
+    return;
+
+  }
+
+  if (!card) {
+
+    res.status(404).json({ message: 'card not found' });
+    return;
+
+  }
+
+  if (card.user_id !== req.decoded.subject) {
+
+    res.status(403).json({ message: 'You dont own this card my man' });
+    return;
+
+  }
+
+  try {
+
+    await db('user_cards').where('card_id', req.params.id).del();
+    await db('business_cards').where('id', req.params.id).del();
+
+  }
+
+  catch (err) {
+
+    console.log('error bros');
+    res.status(500).json({ message: 'whoever wrote this backend effed up. Oh wait, I wrote the backend. Dang it.'});
+    return;
+
+  }
+
+  res.status(200).json({ message: 'we good yo'});
 
 });
 

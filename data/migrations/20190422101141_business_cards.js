@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
     tbl.string('fax');
     tbl.string('web_url');
     tbl.string('qr_url');
-    tbl.integer('user_id').notNullable();
+    tbl.integer('user_id').notNullable().references('id').inTable('users');
 
   })
 };
