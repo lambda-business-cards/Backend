@@ -87,7 +87,12 @@ server.post('/', authenticate, async (req, res) => {
 
     await db('business_cards').update({ qr_url }).where({ id });
 
-    res.status(201).json({message: 'Success!'});
+    const created = await db.select().from('business_cards').where({ user_id });
+    const saved = await db.select('c.*', 'uc.comment').from('business_cards as c').join('user_cards as uc', 'uc.card_id', 'c.id').where('uc.user_id', user_id);
+
+    res.status(201).json({
+      created, saved
+    });
 
   }
 
