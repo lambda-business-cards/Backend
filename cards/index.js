@@ -32,6 +32,27 @@ server.get('/', authenticate, async (req, res) => {
 
 });
 
+server.get('/:id', authenticate, async (req, res) => {
+
+  const id = req.params.id;
+
+  try {
+
+    const data = await db.select().from('business_cards').where({ id }).first();
+
+    res.status(200).json(data);
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+    res.status(500).json({message: 'this server be trippin'});
+
+  }
+
+});
+
 server.post('/', authenticate, async (req, res) => {
 
   const user_id = req.decoded.subject;
