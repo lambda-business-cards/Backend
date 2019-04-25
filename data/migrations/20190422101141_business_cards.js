@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     tbl.string('business_name').notNullable();
     tbl.string('contact_name').notNullable();
     tbl.string('email').notNullable();
+    tbl.string('title');
     tbl.string('phone');
     tbl.string('img_url');
     tbl.string('address');

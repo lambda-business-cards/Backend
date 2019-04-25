@@ -57,7 +57,7 @@ server.post('/', authenticate, async (req, res) => {
 
   const user_id = req.decoded.subject;
 
-  const { business_name, contact_name, email, phone, img_url, address, fax, web_url } = req.body;
+  const { business_name, contact_name, email, phone, img_url, address, fax, web_url, title } = req.body;
 
   if (!business_name) {
 
@@ -75,7 +75,7 @@ server.post('/', authenticate, async (req, res) => {
 
   try {
 
-    await db.insert({ business_name, contact_name, email, phone, img_url, address, fax, web_url, user_id }).into('business_cards');
+    await db.insert({ business_name, contact_name, email, phone, img_url, address, fax, web_url, user_id, title }).into('business_cards');
 
     let id = await db.select('id').from('business_cards').where({ email, business_name, contact_name, user_id }).first();
 
@@ -128,13 +128,18 @@ server.post('/save', authenticate, async (req, res) => {
 
   await db.insert({ user_id, card_id, comment }).into('user_cards');
 
-  res.status(201).json({message: 'success!'});
+  const created = await db.select().from('business_cards').where({ user_id });
+  const saved = await db.select('c.*', 'uc.comment').from('business_cards as c').join('user_cards as uc', 'uc.card_id', 'c.id').where('uc.user_id', user_id);
+
+  res.status(201).json({
+    created, saved
+  });
 
 });
 
 server.put('/:id', authenticate, async (req, res) => {
 
-  const { business_name, contact_name, email, phone, img_url, address, fax, web_url } = req.body;
+  const { business_name, contact_name, email, phone, img_url, address, fax, web_url, title } = req.body;
 
   if (!(business_name || contact_name || email || phone || img_url || address || fax || web_url)) {
 
