@@ -110,6 +110,8 @@ server.post('/save', authenticate, async (req, res) => {
   const user_id = req.decoded.subject;
   const { card_id, comment } = req.body;
 
+  console.log(user_id);
+
   if (!card_id) {
 
     res.status(400).json({message: 'No card id provided!'});
