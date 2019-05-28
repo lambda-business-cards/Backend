@@ -15,11 +15,29 @@ server.get('/', authenticate, async (req, res) => {
   try {
 
     const created = await db.select().from('business_cards').where({ user_id });
+
+    res.status(200).json(created);
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+    res.status(500).json({message: 'this server be trippin'});
+
+  }
+
+});
+
+server.get('/saved', authenticate, async (req, res) => {
+
+  const user_id = req.decoded.subject;
+
+  try {
+
     const saved = await db.select('c.*', 'uc.comment').from('business_cards as c').join('user_cards as uc', 'uc.card_id', 'c.id').where('uc.user_id', user_id);
 
-    res.status(200).json({
-      created, saved
-    });
+    res.status(200).json(saved);
 
   }
 

@@ -9,6 +9,8 @@ const server = express.Router();
 
 server.post('/register', multipart, async (req, res) => {
 
+  console.log('they hit me yo');
+
   let { username, password, email, phone } = req.body;
 
   if (!username) {
