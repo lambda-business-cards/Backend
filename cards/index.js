@@ -222,6 +222,53 @@ server.put('/:id', authenticate, async (req, res) => {
 
 });
 
+server.delete('/unsave/:id', authenticate, async (req, res) => {
+
+  const id = req.params.id;
+
+  let card;
+
+  try {
+
+    card = await db.select().from('business_cards').where({ id }).first();
+
+  }
+
+  catch (err) {
+
+    res.status(500).json({message: 'somethings going wrong son'});
+    return;
+
+  }
+
+  if (!card) {
+
+    res.status(404).json({ message: 'card not found' });
+    return;
+
+  }
+
+  try {
+
+    await db('user_cards').where({
+      card_id: id,
+      user_id: req.decoded.subject
+    }).del();
+
+  }
+
+  catch (err) {
+
+    console.log('error bros');
+    res.status(500).json({ message: 'whoever wrote this backend effed up. Oh wait, I wrote the backend. Dang it.'});
+    return;
+
+  }
+
+  res.status(200).json({ message: 'it worked!' });
+
+});
+
 server.delete('/:id', authenticate, async (req, res) => {
 
   const id = req.params.id;
